@@ -14,11 +14,10 @@ jobs:
           node-version: '10.x'
 
       - name: Install
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npm run setup
 
       - name: Test
         run: npm run test
