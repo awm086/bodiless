@@ -3,8 +3,7 @@ name: Build, Test, Lint for Pull Requests
 on:
   pull_request:
     branches:
-      - main:
-
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
