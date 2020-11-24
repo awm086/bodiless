@@ -47,6 +47,10 @@ jobs:
           path: |
             node_modules
             */*/node_modules
+            lib
+            */*/lib
+            dist
+            */*/dist
           key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: install dependencies and verify Cypress
@@ -92,6 +96,10 @@ jobs:
           path: |
             node_modules
             */*/node_modules
+            lib
+            */*/lib
+            dist
+            */*/dist
           key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
       - name: Test
         run: npm run test --verbose
