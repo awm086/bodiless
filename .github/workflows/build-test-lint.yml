@@ -105,8 +105,8 @@ jobs:
   #     - name: Test
   #       run: npm run test --verbose
 
-      # - name: Lint
-      #   run: npm run lint
+  # - name: Lint
+  #   run: npm run lint
   cypress:
     name: Run Cypress Tests
     runs-on: ubuntu-latest
@@ -114,7 +114,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # @todo we may not need this if using
-       # uses: cypress-io/github-action@v2
+      # uses: cypress-io/github-action@v2
       # install a specific version of Node using
       # https://github.com/actions/setup-node
       # - name: Use Node.js v12
@@ -129,7 +129,8 @@ jobs:
           key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
             cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
-      # Restore local node_modules and build files.
+      # Restore local node_modules and build files
+      # see .
       - name: Cache local node_modules
         uses: actions/cache@v2
         with:
@@ -151,6 +152,11 @@ jobs:
       #--parallel --group "Parallel 2x"
       - name: Cypress tests
         uses: cypress-io/github-action@v2
+        timeout-minutes: 10
+        # with:
+        #   wait-on: "http://localhost:8005"
+        #   # wait for 2 minutes for the server to respond
+        #   wait-on-timeout: 120
         env:
           # place your secret record key at
           # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
