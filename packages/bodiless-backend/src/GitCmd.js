@@ -73,10 +73,10 @@ class GitCmd {
           return;
         }
 
-        // const error = new Error(`${stderr}`);
-        // error.code = `${code}`;
-        // error.info = { stdout, stderr, code };
-        reject(new Error('fail'));
+        const error = new Error(`${stderr}`);
+        error.code = `${code}`;
+        error.info = { stdout, stderr, code };
+        reject(error);
       });
     });
   }

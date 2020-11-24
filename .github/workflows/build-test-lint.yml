@@ -20,7 +20,7 @@ jobs:
         run: npm run setup
 
       - name: Test
-        run: npm run test --verbose
+        run: npm run test --quiet
 
       - name: Lint
         run: npm run lint
