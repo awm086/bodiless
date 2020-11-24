@@ -150,6 +150,8 @@ jobs:
       - name: Cypress tests
         run: |
           npm run test:ci
+        with:
+           wait-on: 'http://localhost:8005'
         env:
           # place your secret record key at
           # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
