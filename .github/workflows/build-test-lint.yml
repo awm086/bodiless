@@ -35,13 +35,13 @@ jobs:
       # just so we learn about available environment variables GitHub provides
       - name: Print env variables
         run: |
-        npm i -g @bahmutov/print-env
-        print-env GITHUB
+          npm i -g @bahmutov/print-env
+          print-env GITHUB
 
       - name: Cypress tests
-      run: npm run test:ci
-      env:
-        # place your secret record key at
-        # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
-        # CYPRESS_RECORD_KEY: ${{ secrets.dashboardRecordKey }}
-        TERM: xterm
+        run: npm run test:ci
+        env:
+          # place your secret record key at
+          # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
+          # CYPRESS_RECORD_KEY: ${{ secrets.dashboardRecordKey }}
+          TERM: xterm
