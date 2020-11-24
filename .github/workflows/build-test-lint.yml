@@ -5,43 +5,53 @@ on:
     branches:
       - main
 jobs:
-  build-lint-test:
+  install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.19'
-
+          node-version: "12.19"
       - name: Install
         run: npm ci
-
+  build:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
       - name: Build
         run: npm run setup
-
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Test
         run: npm run test --verbose
-
       - name: Lint
         run: npm run lint
-  Cypress:
+  lint:
     runs-on: ubuntu-latest
-    needs: build-lint-test
+    needs: test
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.19'
-      # just so we learn about available environment variables GitHub provides
-      - name: Print env variables
-        run: |
-          npm i -g @bahmutov/print-env
-          print-env GITHUB
+      - name: Lint
+        run: npm run lint
+  # Cypress:
+  #   runs-on: ubuntu-latest
+  #   needs: build-lint-test
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "12.19"
+  #     # just so we learn about available environment variables GitHub provides
+  #     - name: Print env variables
+  #       run: |
+  #         npm i -g @bahmutov/print-env
+  #         print-env GITHUB
 
-      - name: Cypress tests
-        run: npm run test:ci
-        env:
-          # place your secret record key at
-          # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
-          # CYPRESS_RECORD_KEY: ${{ secrets.dashboardRecordKey }}
-          TERM: xterm
+  #     - name: Cypress tests
+  #       run: npm run test:ci
+  #       env:
+  #         # place your secret record key at
+  #         # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
+  #         # CYPRESS_RECORD_KEY: ${{ secrets.dashboardRecordKey }}
+  #         TERM: xterm
