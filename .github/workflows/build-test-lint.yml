@@ -76,34 +76,34 @@ jobs:
       #   run: |
       #     npm run test:ci --parallel --group "Parallel 2x"
 
-  test-lint:
-    name: Test & Lint
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - uses: actions/checkout@v2
+  # test-lint:
+  #   name: Test & Lint
+  #   runs-on: ubuntu-latest
+  #   needs: setup
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      # install a specific version of Node using
-      # https://github.com/actions/setup-node
-      - name: Use Node.js v12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+  #     # install a specific version of Node using
+  #     # https://github.com/actions/setup-node
+  #     - name: Use Node.js v12
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
 
-      # Restore just local node_modules.
-      - name: Cache local node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-            lib
-            */*/lib
-            dist
-            */*/dist
-          key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
-      - name: Test
-        run: npm run test --verbose
+  #     # Restore just local node_modules.
+  #     - name: Cache local node_modules
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           node_modules
+  #           */*/node_modules
+  #           lib
+  #           */*/lib
+  #           dist
+  #           */*/dist
+  #         key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
+  #     - name: Test
+  #       run: npm run test --verbose
 
       # - name: Lint
       #   run: npm run lint
@@ -113,12 +113,14 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v2
+      # @todo we may not need this if using
+       # uses: cypress-io/github-action@v2
       # install a specific version of Node using
       # https://github.com/actions/setup-node
-      - name: Use Node.js v12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+      # - name: Use Node.js v12
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 12
       # Restore just local node_modules and the Cypress binary archives.
       - name: Cache Cypress binary
         uses: actions/cache@v2
@@ -148,10 +150,7 @@ jobs:
       # npx cypress run --record --parallel --group "Parallel 2x"
       #--parallel --group "Parallel 2x"
       - name: Cypress tests
-        run: |
-          npm run test:ci
-        with:
-           wait-on: 'http://localhost:8005'
+        uses: cypress-io/github-action@v2
         env:
           # place your secret record key at
           # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
