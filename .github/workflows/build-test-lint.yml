@@ -62,11 +62,11 @@ jobs:
       - name: Build
         run: npm run setup
 
-      - name: Test
-        run: npm run test --verbose
+      # - name: Test
+      #   run: npm run test --verbose
 
-      - name: Lint
-        run: npm run lint
+      # - name: Lint
+      #   run: npm run lint
 
       - name: Cypress tests
         run: |
