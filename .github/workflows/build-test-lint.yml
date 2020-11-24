@@ -20,7 +20,7 @@ jobs:
         run: npm run setup
 
       - name: Test
-        run: npm run test --verbose --maxWorkers=2
+        run: npm run test --verbose --maxWorkers=1
 
       - name: Lint
         run: npm run lint
